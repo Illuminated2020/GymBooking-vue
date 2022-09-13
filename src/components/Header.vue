@@ -17,8 +17,7 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
             <div class="block" style="margin: 7px; width: 10%; text-align: right">
-                <el-avatar shape="square" :size="small"
-                    :src="'http://localhost:8080/common/download?name=' + squareUrl">
+                <el-avatar shape="square" :src="'http://localhost:8080/common/download?name=' + squareUrl">
                 </el-avatar>
             </div>
             <el-dropdown style="width: 7%; text-align: left">
@@ -30,7 +29,7 @@
                 </div>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>
-                        <span @click="$router.push('/personal')">个人中心</span>
+                        <span @click="personal">个人中心</span>
                     </el-dropdown-item>
                     <el-dropdown-item>
                         <span @click="logout">退出</span>
@@ -92,6 +91,9 @@ export default {
                     type: 'error'
                 });
             })
+        },
+        personal() {
+            window.location.href = '/personal'
         }
     },
     watch: {

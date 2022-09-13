@@ -234,6 +234,9 @@ export default {
                 window.open(`http://localhost:8080/user/export`)
             )
         },
+        handleExcelImportSuccess() {
+            this.$message.success('导入成功！')
+        }
     },
 }
 </script>

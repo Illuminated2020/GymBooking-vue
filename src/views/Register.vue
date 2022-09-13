@@ -85,6 +85,7 @@
         }
     };
       return {
+        loading: false,
         registerForm: {
           nickname:'',
           username: '',
@@ -94,7 +95,6 @@
           phone:'',
           sex:'',
         },
-        loading: false,
         rules: {
           nickname:[ 
           {required: true, message: '请输入用户名称', trigger: 'blur'},

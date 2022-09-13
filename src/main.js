@@ -6,7 +6,9 @@ import Element from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
 import "./style/global.css"
 import axios from 'axios'
-
+//在vue项目的mian.js文件中，引入js-md5并挂载原型
+import md5 from 'js-md5';
+Vue.prototype.$md5 = md5;
 Vue.prototype.$axios = axios //
 Vue.use(Element, { size: "mini" })
 Vue.config.productionTip = false
