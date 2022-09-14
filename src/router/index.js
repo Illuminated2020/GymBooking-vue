@@ -21,9 +21,9 @@ const routes = [
                 component: () => import('@/views/Home.vue'),
             },
             {
-                path: '/shop',
-                name: '商品管理',
-                component: () => import('@/views/Shop.vue'),
+                path: '/sports',
+                name: '场馆管理',
+                component: () => import('@/views/Sports.vue'),
             },
             {
                 path: '/news',
@@ -34,6 +34,11 @@ const routes = [
                 path: '/personal',
                 name: '个人中心',
                 component: () => import('@/views/Personal.vue'),
+            },
+            {
+                path: '/book',
+                name: '场馆预约',
+                component: () => import('@/views/Book.vue'),
             },
         ]
     },

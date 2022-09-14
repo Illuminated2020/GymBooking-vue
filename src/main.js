@@ -8,6 +8,9 @@ import "./style/global.css"
 import axios from 'axios'
 //在vue项目的mian.js文件中，引入js-md5并挂载原型
 import md5 from 'js-md5';
+//全局引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 Vue.prototype.$md5 = md5;
 Vue.prototype.$axios = axios //
 Vue.use(Element, { size: "mini" })
