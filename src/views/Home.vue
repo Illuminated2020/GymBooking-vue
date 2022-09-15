@@ -4,7 +4,8 @@
             <el-col :span="24">
                 <el-carousel :interval="4000" type="card" height="360px">
                     <el-carousel-item v-for="item in imgwrap" :key="item.url">
-                        <img :src="item.url" />
+                        <img style="height: 360px;" :src="item.url">
+                        </img>
                     </el-carousel-item>
                 </el-carousel>
             </el-col>

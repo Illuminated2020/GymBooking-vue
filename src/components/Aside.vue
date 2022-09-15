@@ -20,13 +20,14 @@
                 用户管理
             </el-menu-item>
             <el-menu-item index="/sports">场馆管理</el-menu-item>
+            <el-menu-item index="/order">预约管理</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
             <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>我要预约</span>
             </template>
-            <el-menu-item index="/news">新闻主页</el-menu-item>
+            <el-menu-item index="/data">预约数据</el-menu-item>
             <el-menu-item index="/book">场馆预约</el-menu-item>
         </el-submenu>
         <el-submenu index="4" v-if="true">

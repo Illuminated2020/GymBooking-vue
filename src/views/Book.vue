@@ -8,11 +8,62 @@
                         <span>{{item.name}}</span>
                         <div class="bottom clearfix">
                             <time class="time">总预约数：{{ item.count }}</time>
-                            <el-button type="text" class="button">预约></el-button>
+                            <el-button type="text" class="button" @click="book(item.id)">预约></el-button>
                         </div>
                     </div>
                 </el-card>
             </el-col>
+            <el-drawer title="场馆预约:" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
+                size="60%">
+                <el-descriptions :column="3" border="true" title="" style="margin: 2px 500px 20px 50px;" size="small">
+                    <el-descriptions-item label="场馆图片">
+                        <div>
+                            <img style="height: 100px;"
+                                :src="`http://localhost:8080/common/download?name=${showForm.image}`">
+                            </img>
+                        </div>
+                    </el-descriptions-item>
+                    <el-descriptions-item label="场馆名称">{{showForm.name}}</el-descriptions-item>
+                    <el-descriptions-item label="场馆描述">{{showForm.description}}</el-descriptions-item>
+                </el-descriptions>
+                <el-form id="add" :model="orderForm" :rules="rules" ref="orderForm" :label-position="labelPosition"
+                    label-width="80px" style="text-align: auto;width: 70%;margin-left: 70px;">
+                    <el-form-item label="学生姓名" prop="stuname" disabled="true">
+                        <el-input v-model="orderForm.stuname"></el-input>
+                    </el-form-item>
+                    <el-form-item label="专业班级" prop="class" disabled="true">
+                        <el-input v-model="orderForm.class"></el-input>
+                    </el-form-item>
+                    <el-form-item label="预约时间" required>
+                        <el-col :span="6">
+                            <el-form-item prop="dateDay">
+                                <el-date-picker v-model="orderForm.dateDay" align="right" placeholder="选择日期"
+                                    :picker-options="pickerOptions">
+                                </el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                        <el-col class="line" :span="2">-</el-col>
+                        <el-col :span="6">
+                            <el-form-item prop="dateTime">
+                                <el-time-select v-model="orderForm.dateTime" :picker-options="{
+                                  start: '10:30',
+                                  step: '00:30',
+                                  end: '22:30'
+                                }" placeholder="选择时间">
+                                </el-time-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="手机号码" prop="beizhu">
+                        <el-input v-model="orderForm.beizhu" placeholder="请仔细填写，手机号将作为运动统计数据"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('orderForm')">立即预约</el-button>
+                        <el-button @click="resetForm('orderForm')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-drawer>
+
         </el-row>
     </div>
 </template>
@@ -25,6 +76,36 @@ export default {
     data() {
         var sport = [];
         return {
+            showForm: {
+                name: '',
+                image: '',
+                count: '',
+                status: '',
+                description: '',
+            },
+            orderForm: {
+                stuname: '',
+                dateDay: '',
+                dateTime: '',
+                class: '',
+                beizhu: '',
+            },
+            rules: {
+                stuname: [
+                    { required: true, message: '请输入学生姓名', trigger: 'blur' },
+                ],
+                class: [
+                    { required: true, message: '请输入专业班级', trigger: 'blur' }
+                ],
+                dateDay: [
+                    { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+                ],
+                dateTime: [
+                    { type: 'string', required: true, message: '请选择时间', trigger: 'change' }
+                ],
+            },
+            drawer: false,
+            direction: 'ttb',
             sport,
             pageSize: 10,
             pagetotal: 0,
@@ -34,8 +115,33 @@ export default {
             dialogFormVisible: false,
             multipleSelection: [],
             labelPosition: 'right',
-
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() < Date.now() - 3600 * 1000 * 24;
+                },
+                shortcuts: [{
+                    text: '今天',
+                    onClick(picker) {
+                        picker.$emit('pick', new Date());
+                    }
+                }, {
+                    text: '明天',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() + 3600 * 1000 * 24);
+                        picker.$emit('pick', date);
+                    }
+                }, {
+                    text: '一周后',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', date);
+                    }
+                }]
+            },
         }
+
     },
     mounted() {
         this.init()
@@ -46,8 +152,55 @@ export default {
                 this.sport = res.data.data
                 console.log(this.sport)
             })
+        },
+        book(id) {
+            this.drawer = true
+            axios.get('/sports/one', {
+                params: {
+                    id: id
+                }
+            }).then(res => {
+                this.showForm = res.data.data
+                console.log(this.showForm)
+            })
+        },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => { });
+        },
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    axios.post('/order', {
+                        sportsName: this.showForm.name,
+                        stuName: this.orderForm.stuname,
+                        className: this.orderForm.class,
+                        dateDay: this.orderForm.dateDay.toLocaleDateString(),
+                        dateTime: this.orderForm.dateTime,
+                        beizhu: this.orderForm.beizhu,
+                    }).then(res => {
+                        console.log(res.data);
+                        this.drawer = false,
+                            this.$refs[formName].resetFields();
+                        this.$message({
+                            message: '预约成功',
+                            type: 'success'
+                        });
+                    })
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
+
 }
 </script>
 
