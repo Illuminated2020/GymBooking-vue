@@ -13,6 +13,7 @@
                     </div>
                 </el-card>
             </el-col>
+
             <el-drawer title="场馆预约:" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
                 size="60%">
                 <el-descriptions :column="3" :border="true" title="" style="margin: 2px 500px 20px 50px;" size="small">
