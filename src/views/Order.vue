@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         init() {
-            axios.get('/order/page', {
+            axios.get('/book/page', {
                 params: {
                     page: this.currentpage, pageSize: this.pageSize,
                 }

@@ -1,20 +1,20 @@
 <template>
     <div id="data">
-        <h1 style="margin: 5px 0 0 10px;">场馆数据[实时更新]</h1>
-        <el-row :gutter="20">
+        <h1 style="margin: 1px 0 0 10px;">场馆数据[实时更新]</h1>
+        <el-row :gutter="10">
             <el-col :span="12">
                 <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-                <div ref="main" style="width: 600px;height:400px;margin:10px 0 0 20px;"></div>
+                <div ref="main" style="width: auto;height:400px;margin:10px 0 0 20px;"></div>
             </el-col>
             <el-col :span="12">
-                <div ref="pie" style="width: 600px;height:400px;"></div>
+                <div ref="pie" style="width: auto;height:400px;"></div>
             </el-col>
         </el-row>
         <el-row :gutter="20">
             <el-col :span="24">
                 <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-                <h5>我的运动曲线</h5>
-                <div ref="self" style="width: 600px;height:400px;margin:10px 0 0 20px;"></div>
+                <h5>场馆未来两周预计人流量曲线</h5>
+                <div ref="every" style="width: auto;height:380px;"></div>
             </el-col>
         </el-row>
     </div>
@@ -41,18 +41,11 @@ export default {
     methods: {
         getData() {
             axios.get('/echarts/pie', {}).then(res => {
-                // for (var i = 0; i < res.data.data.length; i++) {
-                //     names.push(res.data.data[i].name);
-                //     values.push(res.data.data[i].value);
-                // }
                 this.allData = res.data.data;
-                console.log(this.allData);
+                // console.log(this.allData);
                 this.updateChart();
             })
             axios.get('/echarts/one', {
-                params: {
-                    phone: JSON.parse(localStorage.getItem("userInfo")).data.phone
-                }
             }).then(res => {
                 this.myData = res.data.data;
                 console.log(this.myData);
@@ -62,7 +55,7 @@ export default {
         initChart() {
             this.myChart1 = echarts.init(this.$refs.main);
             this.myChart2 = echarts.init(this.$refs.pie);
-            this.myChart3 = echarts.init(this.$refs.self);
+            this.myChart3 = echarts.init(this.$refs.every);
         },
         updateChart() {
             const formNames = this.allData.map((item) => {
@@ -77,7 +70,8 @@ export default {
             const selfValue = this.myData.map((item) => {
                 return item.value
             })
-            console.log(formNames);
+            console.log(selfName);
+            console.log(selfValue);
             const option = {
                 xAxis: {
                     type: 'value',
@@ -121,7 +115,7 @@ export default {
                 },
                 series: [
                     {
-                        name: 'Access From',
+                        name: '场馆总预约人数:',
                         type: 'pie',
                         data: this.allData,
                         radius: ['40%', '70%'],

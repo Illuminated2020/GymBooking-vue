@@ -13,14 +13,14 @@
         <el-divider style="margin: 50px;"></el-divider>
         <el-row>
             <el-col :span="5" :push="1">
-                <h3 align="center" style="margin-bottom: 5px;">运动排行榜</h3>
+                <h3 align="center" style="margin-bottom: 5px;">运动排行榜[只显示前十名数据]</h3>
                 <el-table :data="tableData" stripe style="flex" :size="mini" :header-cell-style="{ 
                 background:'#e2d2d2',height:'20px',border: '1px solid tan'}">
-                    <el-table-column prop="date" label="排名" width="50">
+                    <el-table-column type="index" label="排名" width="50">
                     </el-table-column>
-                    <el-table-column prop="name" label="用户名" width="120">
+                    <el-table-column prop="stuName" label="用户名" width="120">
                     </el-table-column>
-                    <el-table-column prop="address" label="运动时长">
+                    <el-table-column prop="totalCount" label="运动次数">
                     </el-table-column>
                 </el-table>
             </el-col>
@@ -33,10 +33,12 @@
 </template>
 
 <script>
+import axios from '../util/myaxios';
 export default {
     name: "Home",
     data() {
         return {
+            tableData: [],
             imgwrap: [
                 { url: require("../assets/img/6.jpg") },
                 { url: require("../assets/img/banner02.jpg") },
@@ -46,7 +48,19 @@ export default {
             ],
             value: new Date()
         }
+    },
+    mounted() {
+        this.init()
+    },
+    methods: {
+        init() {
+            axios.get('/book/all', {}).then(res => {
+                this.tableData = res.data.data;
+                console.log(this.tableData);
+            })
+        }
     }
+
 }
 </script>
 

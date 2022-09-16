@@ -15,7 +15,7 @@
             </el-col>
             <el-drawer title="场馆预约:" :visible.sync="drawer" :direction="direction" :before-close="handleClose"
                 size="60%">
-                <el-descriptions :column="3" border="true" title="" style="margin: 2px 500px 20px 50px;" size="small">
+                <el-descriptions :column="3" :border="true" title="" style="margin: 2px 500px 20px 50px;" size="small">
                     <el-descriptions-item label="场馆图片">
                         <div>
                             <img style="height: 100px;"
@@ -37,8 +37,8 @@
                     <el-form-item label="预约时间" required>
                         <el-col :span="6">
                             <el-form-item prop="dateDay">
-                                <el-date-picker v-model="orderForm.dateDay" align="right" placeholder="选择日期"
-                                    :picker-options="pickerOptions">
+                                <el-date-picker v-model="orderForm.dateDay" value-format="yyyy/MM/dd" align="right"
+                                    placeholder="选择日期" :picker-options="pickerOptions">
                                 </el-date-picker>
                             </el-form-item>
                         </el-col>
@@ -98,10 +98,10 @@ export default {
                     { required: true, message: '请输入专业班级', trigger: 'blur' }
                 ],
                 dateDay: [
-                    { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+                    { required: true, message: '请选择日期', trigger: 'change' }
                 ],
                 dateTime: [
-                    { type: 'string', required: true, message: '请选择时间', trigger: 'change' }
+                    { required: true, message: '请选择时间', trigger: 'change' }
                 ],
             },
             drawer: false,
@@ -174,11 +174,11 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    axios.post('/order', {
+                    axios.post('/book', {
                         sportsName: this.showForm.name,
                         stuName: this.orderForm.stuname,
                         className: this.orderForm.class,
-                        dateDay: this.orderForm.dateDay.toLocaleDateString(),
+                        dateDay: this.orderForm.dateDay,
                         dateTime: this.orderForm.dateTime,
                         beizhu: this.orderForm.beizhu,
                     }).then(res => {
