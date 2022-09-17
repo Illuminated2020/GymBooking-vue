@@ -10,6 +10,11 @@ import axios from 'axios'
 import md5 from 'js-md5';
 //全局引入echarts
 import echarts from 'echarts'
+import 'github-markdown-css/github-markdown.css'
+//整合mavonEditor实现markdown
+import { mavonEditor } from "mavon-editor"
+import "mavon-editor/dist/css/index.css"
+Vue.component("mavon-editor", mavonEditor)
 Vue.prototype.$echarts = echarts
 Vue.prototype.$md5 = md5;
 Vue.prototype.$axios = axios //

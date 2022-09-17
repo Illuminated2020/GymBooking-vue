@@ -4,26 +4,23 @@
             <div style="font-size: 18px; width: 2%; ">
                 <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
             </div>
-            <el-breadcrumb class="breadcrumb" separator="/" style="margin: 22px 30px;width: 80%;">
+            <el-breadcrumb class="breadcrumb" separator="/" style="margin: 22px 30px;width: 70%;">
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <!--面包屑列表-->
-                <!-- <el-breadcrumb-item v-for='(item,index) in breadList' :key='index' @click.native="breadcrumbClick(item)"
-                    v-if='item.name' style="cursor: pointer">
-                    {{item.name}}
-                </el-breadcrumb-item> -->
                 <el-breadcrumb-item v-for="item in levelList" :key="item.path" @click.native="breadcrumbClick(item)"
                     v-if='item.name' style="cursor: pointer">
                     {{item.name}}
                 </el-breadcrumb-item>
             </el-breadcrumb>
-            <div class="block" style="margin: 7px; width: 10%; text-align: right">
+            <div class="block" style="margin: 7px; width: 20%; text-align: right">
                 <el-avatar shape="square" :src="'http://localhost:8080/common/download?name=' + squareUrl">
                 </el-avatar>
             </div>
-            <el-dropdown style="width: 7%; text-align: left">
+            <el-dropdown style="width: 8%; text-align: left">
                 <div style="display: inline-block">
                     <span style="cursor: pointer;">
-                        <div style="color: white;">{{username}}</div>
+                        <div style="color: white;">
+                            {{username}}
+                        </div>
                     </span>
                     <!-- <i class="el-icon-user-solid" style="margin-left: 5px"></i> -->
                 </div>
@@ -62,6 +59,12 @@ export default {
         this.getBreadcrumb()
     },
     methods: {
+        menuShow() {
+            if (JSON.parse(localStorage.getItem("userInfo")).data.role == '普通用户') {
+                return true
+            }
+            return false
+        },
         // 面包屑数据处理
         getBreadcrumb() {
             let matched = this.$route.matched.filter(item => item.name)  //获取路由信息，并过滤保留路由名称信息存入数组

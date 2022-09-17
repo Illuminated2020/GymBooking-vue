@@ -71,7 +71,6 @@
 
 <script>
 import axios from '../util/myaxios';
-
 export default {
     name: "Book",
     data() {

@@ -45,6 +45,16 @@ const routes = [
                 name: '预约管理',
                 component: () => import('@/views/Order.vue'),
             },
+            {
+                path: '/chat',
+                name: '聊天广场',
+                component: () => import('@/views/Chat.vue'),
+            },
+            {
+                path: '/markdown',
+                name: '我来讲两句',
+                component: () => import('@/views/MarkDown.vue'),
+            },
         ]
     },
     {

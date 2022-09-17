@@ -13,7 +13,7 @@
         <el-row :gutter="20">
             <el-col :span="24">
                 <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-                <h5>场馆未来两周预计人流量曲线</h5>
+                <h5>场馆未来两周人流量预计曲线</h5>
                 <div ref="every" style="width: auto;height:380px;"></div>
             </el-col>
         </el-row>
