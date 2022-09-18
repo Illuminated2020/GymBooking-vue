@@ -56,7 +56,7 @@
                 <i class="el-icon-chat-line-square"></i>
                 我来讲两句
             </el-menu-item>
-            <el-menu-item index="3-3">选项3</el-menu-item>
+            <el-menu-item index="/index">选项3</el-menu-item>
         </el-submenu>
     </el-menu>
 </template>

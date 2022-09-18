@@ -1,7 +1,7 @@
 <template>
   <el-row type="flex" class="row-bg" justify="center"
-    style="background-image: linear-gradient(to top left, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%);">
-    <el-col :span="5">
+    style="background-image: linear-gradient(to top left, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); height: 100%;">
+    <el-col :span=" 5">
       <div class="tit">欢迎来到体育馆预约注册系统</div>
       <el-divider></el-divider>
       <el-image :src="require('@/assets/img/erweima.jpg')" style="height: 100%; width: 180px;">
@@ -15,43 +15,46 @@
     <el-col :span="1">
       <el-divider id="did" direction="vertical"></el-divider>
     </el-col>
-    <el-col :span="8" style="margin-left: 70px;">
-      <h2 style="width: 450px;">欢迎注册</h2>
-      <br><br>
-      <el-form id="register" style="width: 70%;" :rules="rules" ref="registerForm" :model="registerForm"
-        label-width="80px">
-        <el-form-item label="用户名" prop="nickname">
-          <el-input v-model="registerForm.nickname"></el-input>
-        </el-form-item>
-        <el-form-item label="账号" prop="username">
-          <el-input type="text" v-model="registerForm.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="registerForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkpwd">
-          <el-input type="password" v-model="registerForm.checkpwd" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input type="email" v-model="registerForm.email"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号码" prop="phone">
-          <el-input v-model="registerForm.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-radio v-model="registerForm.sex" label="男">男</el-radio>
-          <el-radio v-model="registerForm.sex" label="女">女</el-radio>
-        </el-form-item>
-        <el-form-item style="width:100%;">
-          <el-button :loading="loading" class="register-btn" size="medium" type="primary" style="width:40%;"
-            @click="register('registerForm')">
-            <span v-if="!loading">注册</span>
-            <span v-else>注册中...</span>
-          </el-button>
-          <el-button size="medium" style="width:40%;margin-left: 50px;" @click="resetForm('registerForm')">重置
-          </el-button>
-        </el-form-item>
-      </el-form>
+    <el-col :span="9" style="margin-left: 70px;">
+      <el-card class="box-card" shadow="always" style="background:transparent;width: 90%;">
+        <h2 style="width: 620px;">欢迎注册</h2>
+        <br>
+        <el-form id="register" style="width: 95%;" :rules="rules" ref="registerForm" :model="registerForm"
+          label-width="80px">
+          <el-form-item label="用户名" prop="nickname">
+            <el-input v-model="registerForm.nickname"></el-input>
+          </el-form-item>
+          <el-form-item label="账号" prop="username">
+            <el-input type="text" v-model="registerForm.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="registerForm.password" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkpwd">
+            <el-input type="password" v-model="registerForm.checkpwd" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input type="email" v-model="registerForm.email"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号码" prop="phone">
+            <el-input v-model="registerForm.phone"></el-input>
+          </el-form-item>
+          <el-form-item label="性别" prop="sex">
+            <el-radio v-model="registerForm.sex" label="男">男</el-radio>
+            <el-radio v-model="registerForm.sex" label="女">女</el-radio>
+          </el-form-item>
+          <el-form-item style="width:100%;">
+            <el-button :loading="loading" class="register-btn" size="medium" type="primary" style="width:40%;"
+              @click="register('registerForm')">
+              <span v-if="!loading">注册</span>
+              <span v-else>注册中...</span>
+            </el-button>
+            <el-button size="medium" style="width:40%;margin-left: 50px;" @click="resetForm('registerForm')">重置
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
+
     </el-col>
   </el-row>
 </template>

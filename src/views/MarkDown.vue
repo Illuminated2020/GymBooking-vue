@@ -6,16 +6,16 @@
             </el-form-item>
             <el-row :gutter="20">
                 <el-col :span="8">
-                    <el-form-item label="标题" prop="title">
-                        <el-input v-model="editForm.title"></el-input>
-                    </el-form-item>
+                    <!-- <el-form-item label="标题" prop="userId">
+                        <el-input v-model="editForm.userId"></el-input>
+                    </el-form-item> -->
                 </el-col>
                 <el-col :span="8">
-                    <el-form-item label="摘要" prop="description">
+                    <!-- <el-form-item label="摘要" prop="description">
                         <el-input type="textarea" v-model="editForm.description"></el-input>
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-col>
-                <el-col :span="8" style="text-align: right;margin-top: 15px;">
+                <el-col :span="24" style="text-align: right;margin-top: 15px;">
                     <el-button type="primary" @click="submitForm()">发布</el-button>
                     <el-button>取消</el-button>
                 </el-col>
@@ -34,12 +34,12 @@ export default {
         return {
             editForm: {
                 id: null,
-                title: '',
+                userId: '',
                 description: '',
-                content: ''
+                content: '',
             },
             rules: {
-                title: [
+                userId: [
                     { required: true, message: '请输入标题', trigger: 'blur' },
                     { min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
                 ],
@@ -56,7 +56,7 @@ export default {
         //     this.$axios.get('/blog/' + blogId).then((res) => {
         //         const blog = res.data.data
         //         _this.editForm.id = blog.id
-        //         _this.editForm.title = blog.title
+        //         _this.editForm.userId = blog.userId
         //         _this.editForm.description = blog.description
         //         _this.editForm.content = blog.content
         //     });
@@ -64,6 +64,7 @@ export default {
     },
     methods: {
         submitForm() {
+            this.editForm.userId = JSON.parse(localStorage.getItem("userInfo")).data.id
             const _this = this
             this.$refs.editForm.validate((valid) => {
                 console.log(this.editForm);
@@ -73,7 +74,7 @@ export default {
                         _this.$alert('操作成功', '提示', {
                             confirmButtonText: '确定',
                             callback: action => {
-                                window.location.href = '/login'
+                                window.location.href = '/chat'
                             }
                         });
                     });

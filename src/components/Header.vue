@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="height: 70px; text-align: right; font-size: 12px;display: flex; ">
+        <div style="height: 75px; text-align: right; font-size: 12px;display: flex; ">
             <div style="font-size: 18px; width: 2%; ">
                 <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
             </div>
