@@ -1,7 +1,7 @@
 <template>
     <div id="chat">
-        <el-row :gutter="40">
-            <el-col :span="21">
+        <el-row :gutter="0">
+            <el-col :span="20">
                 <el-card class="box-card"
                     style="background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);">
                     <h3 class="chat" style="text-align: center; margin:5px 0 10px 0">聊天广场</h3>
@@ -15,32 +15,40 @@
                                 <b>{{item.nickname}}</b>
                                 <span
                                     style="font-size: 5px; color:darkgray;text-align:right">发布于{{item.createTime}}</span>
+                                <span style="color: darkgray;cursor: pointer;margin-left: 800px;"
+                                    v-if="showBlog(item.userId)" @click="deleteBlog(item.id)">
+                                    <i class="el-icon-delete-solid"></i>删除帖子</span>
                             </div>
                             <VueMarkdown :source="item.content" style="min-height:200px"></VueMarkdown>
-                            <el-collapse accordion @change="getComment(item.id)">
+                            <el-collapse accordion>
                                 <el-collapse-item>
                                     <template slot="title">
-                                        查看回复 <i class="el-icon-chat-round"></i>
+                                        查看评论 <i class="el-icon-chat-round"></i>
                                     </template>
-                                    <div v-for="(comment,index) in comments" :key="index">
+                                    <div v-for="(comment,index) in item.commentDtoList" :key="index">
                                         <el-divider content-position="left">
-                                            <span style="color:darkgray;">于{{comment.createTime}}回复 来自：</span>
+                                            <span style="color:darkgray;">于{{comment.createTime}}评论 来自：</span>
                                             <el-avatar shape="square"
                                                 :src="'http://localhost:8080/common/download?name=' + comment.avatarUrl"
                                                 :size="25">
                                             </el-avatar>{{comment.nickname}}
+                                            <span style="color: darkgray;cursor: pointer;"
+                                                v-if="showDelete(comment.userId)" @click="deleteComment(comment.id)">
+                                                删除评论
+                                                <i class="el-icon-delete-solid"></i></span>
                                         </el-divider>
                                         <span>{{comment.content}}</span>
                                         <br>
                                     </div>
                                 </el-collapse-item>
-                                <Comment style="position: relative; bottom: 0;" :blogId="item.id"></Comment>
+                                <Comment style="position: relative; bottom: 0;" :blogId="item.id" @init="init">
+                                </Comment>
                             </el-collapse>
                         </el-card>
                     </div>
                 </el-card>
             </el-col>
-            <el-col :span="3">
+            <el-col :span="4">
                 <el-backtop target=".chat" :visibility-height=20></el-backtop>
             </el-col>
         </el-row>
@@ -55,11 +63,11 @@ export default {
     name: "Chat",
     components: {
         VueMarkdown, // 注入组件
-        Comment
+        Comment,
     },
     data() {
         var blogs = [];
-        var comments = [];
+        var comments = new Map();
         return {
             count: 5,
             blogs,
@@ -80,17 +88,59 @@ export default {
                 console.log(this.blogs);
             })
         },
-        getComment(id) {
+        showDelete(val) {
+            if (JSON.parse(localStorage.getItem("userInfo")).data.role == '管理员') {
+                return true;
+            }
+            return val === JSON.parse(localStorage.getItem("userInfo")).data.id
+        },
+        showBlog(val) {
+            if (JSON.parse(localStorage.getItem("userInfo")).data.role == '管理员') {
+                return true;
+            }
+            return val === JSON.parse(localStorage.getItem("userInfo")).data.id
+        },
+        deleteComment(val) {
+            this.$confirm('确定删除此条评论吗, 是否继续?', '确定删除', {
+                'confirmButtonText': '确定',
+                'cancelButtonText': '取消',
+            }).then(() => {
+                axios.delete('/comment', {
+                    params: {
+                        id: val,
+                    }
+                }).then(res => {
+                    this.init()
+                })
+            })
+        },
+        deleteBlog(val) {
+            this.$confirm('确定删除此条帖子吗, 是否继续?', '确定删除', {
+                'confirmButtonText': '确定',
+                'cancelButtonText': '取消',
+            }).then(() => {
+                axios.delete('/blog', {
+                    params: {
+                        id: val,
+                    }
+                }).then(res => {
+                    this.init()
+                })
+            })
+        },
+        /* getComment(id) {
             axios.get('/comment', {
                 params: {
                     id: id,
                 }
             }).then(res => {
                 console.log(res.data);
-                this.comments = res.data.data;
-                console.log(this.comments)
+                // this.comments = res.data.data;
+                console.log(id);
+                this.comments.set(id, res.data.data);
+                console.log(this.comments.get(id))
             })
-        }
+        } */
     }
 }
 </script>

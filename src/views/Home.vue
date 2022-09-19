@@ -1,34 +1,82 @@
 <template>
-    <div style="padding: 0 10px; box-sizing: border-box;">
-        <el-row>
-            <el-col :span="24">
-                <el-carousel :interval="4000" type="card" height="360px">
-                    <el-carousel-item v-for="item in imgwrap" :key="item.url">
-                        <img style="height: 360px;" :src="item.url">
-                        </img>
-                    </el-carousel-item>
-                </el-carousel>
-            </el-col>
-        </el-row>
-        <el-divider style="margin: 50px;"></el-divider>
-        <el-row>
-            <el-col :span="5" :push="1">
-                <h3 align="center" style="margin-bottom: 5px;">运动排行榜[只显示前十名数据]</h3>
-                <el-table :data="tableData" stripe style="flex" :size="mini" :header-cell-style="{ 
-                background:'#e2d2d2',height:'20px',border: '1px solid tan'}">
-                    <el-table-column type="index" label="排名" width="50">
-                    </el-table-column>
-                    <el-table-column prop="stuName" label="用户名" width="120">
-                    </el-table-column>
-                    <el-table-column prop="totalCount" label="运动次数">
-                    </el-table-column>
-                </el-table>
-            </el-col>
-            <el-col :span="10" :push="8">
-                <el-calendar v-model="value">
-                </el-calendar>
-            </el-col>
-        </el-row>
+    <div id="home" style="padding: 0 10px; box-sizing: border-box;">
+        <div id="app">
+            <h1 style="font-size: 70px; font-weight: bolder; text-align: center;">欢迎访问体育馆预约系统</h1>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <el-row>
+                <el-col :span="18">
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <br><br>
+                    <el-row :gutter="6">
+                        <el-col :span="6">
+                            <el-card class="box-card">
+                                <el-tooltip class="item" effect="dark" content="立即预约" placement="top">
+                                    <el-image :src="require('@/assets/img/ONCALL.png')" class="image"
+                                        style="width:100%;cursor: pointer;" @click="jump('/book')">
+                                    </el-image>
+                                </el-tooltip>
+                            </el-card>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-card class="box-card">
+                                <el-tooltip class="item" effect="dark" content="聊天广场" placement="top">
+                                    <el-image :src="require('@/assets/img/chat.png')" class="image"
+                                        style="width:100%;cursor: pointer;" @click="jump('/chat')">
+                                    </el-image>
+                                </el-tooltip>
+                            </el-card>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-card class="box-card">
+                                <el-tooltip class="item" effect="dark" content="场馆数据" placement="top">
+                                    <el-image :src="require('@/assets/img/data.png')" class="image"
+                                        style="width:100%;cursor: pointer;" @click="jump('/data')">
+                                    </el-image>
+                                </el-tooltip>
+                            </el-card>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-card class="box-card">
+                                <el-tooltip class="item" effect="dark" content="我来讲两句" placement="top">
+                                    <el-image :src="require('@/assets/img/blog.png')" class="image"
+                                        style="width:100%;cursor: pointer;" @click="jump('/markdown')">
+                                    </el-image>
+                                </el-tooltip>
+                            </el-card>
+                        </el-col>
+                    </el-row>
+                </el-col>
+                <el-col :span="6">
+                    <div id="range">
+                        <h3 style="margin-bottom: 5px;">运动排行榜[只显示前十名数据]</h3>
+                        <div class="table">
+                            <el-table :data="tableData" stripe style="background-color: rgba(255, 255, 255, 0.27);"
+                                :header-cell-style="{ height:'20px',border: '1px solid tan'}">
+                                <el-table-column type="index" label="排名" width="50">
+                                </el-table-column>
+                                <el-table-column prop="stuName" label="用户名" width="120">
+                                </el-table-column>
+                                <el-table-column prop="totalCount" label="运动次数">
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+
+
+        </div>
+
+
     </div>
 </template>
 
@@ -58,31 +106,37 @@ export default {
                 this.tableData = res.data.data;
                 console.log(this.tableData);
             })
-        }
+        },
+        jump(url) {
+            window.location.href = url
+        },
     }
 
 }
 </script>
 
 <style scoped>
-.el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 200px;
-    margin: 0;
+#range {
+    background: transparent;
 }
 
-.el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+#app {
+    background-image: url("../assets/img/reg_bg_min.jpg");
+    text-align: center;
+    height: 830px;
+    position: relative;
 }
 
-.el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
+#app {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 0 100px;
+    /* 给gutter留padding */
 }
 
 .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     &:last-child {
         margin-bottom: 0;
@@ -91,18 +145,6 @@ export default {
 
 .el-col {
     border-radius: 4px;
-}
-
-.bg-purple-dark {
-    background: #99a9bf;
-}
-
-.bg-purple {
-    background: #d3dce6;
-}
-
-.bg-purple-light {
-    background: #e5e9f2;
 }
 
 .grid-content {
@@ -119,5 +161,50 @@ export default {
 .el-calendar-table .el-calendar-day {
     width: 20px;
     height: 40px;
+}
+
+.text {
+    font-size: 14px;
+}
+
+.item {
+    margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}
+
+.box-card {
+    width: 120px;
+    background: transparent;
+    height: 120px;
+
+}
+
+.table /deep/ .el-table th {
+    background-color: transparent !important;
+}
+
+.table /deep/ .el-table tr {
+    background-color: transparent !important;
+}
+
+.table /deep/ .el-table--enable-row-transition .el-table__body td,
+.el-table .cell {
+    background-color: transparent;
+}
+
+.el-table::before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <el-menu class="el-menu-vertical-demo" :default-openeds="['1']" background-color="rgb(47,65,86)"
         style="height: 100%;min-height: 100%;" text-color="#EFF2FB" :collapse-transition="false" :collapse="isCollapse"
-        :unique-opened="true" @select="prt" router>
+        :unique-opened="false" @select="prt" router>
         <div
             style="height: 60px;line-height: 60px;text-align: center;font-weight: bold; background-color: rgb(47,65,86)">
             <img src="../assets/img/logo.png" style="width: 20px;position: relative;top: 5px">
@@ -21,7 +21,7 @@
             </template>
             <el-menu-item index="/data">
                 <i class="el-icon-data-analysis"></i>
-                预约数据
+                场馆数据
             </el-menu-item>
             <el-menu-item index="/book">
                 <i class="el-icon-phone"></i>

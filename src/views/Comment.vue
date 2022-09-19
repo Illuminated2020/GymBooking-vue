@@ -19,6 +19,10 @@ export default {
   name: 'App',
   props: {
     blogId: '',
+    init: {
+      type: Function,
+      default: null,
+    }
   },
   data() {
     var msg = '';
@@ -44,8 +48,11 @@ export default {
         userId: JSON.parse(localStorage.getItem("userInfo")).data.id,
         blogId: this.blogId,
         content: this.content
+      }).then(res => {
+        this.clear()
+        this.$emit('init', null);
       })
-      this.clear()
+      console.log('init');
     },
     contentChanged(val) {
       console.log(val)
@@ -54,7 +61,6 @@ export default {
     },
     clear() {
       this.$refs.twemoji.cleanText()
-      this.get()
     },
   }
 }
