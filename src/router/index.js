@@ -55,6 +55,11 @@ const routes = [
                 name: '我来讲两句',
                 component: () => import('@/views/MarkDown.vue'),
             },
+            {
+                path: '/mybook',
+                name: '我的预约',
+                component: () => import('@/views/Mybook.vue'),
+            },
 
         ]
     },

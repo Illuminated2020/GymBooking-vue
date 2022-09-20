@@ -14,6 +14,8 @@ import 'github-markdown-css/github-markdown.css'
 //整合mavonEditor实现markdown
 import { mavonEditor } from "mavon-editor"
 import "mavon-editor/dist/css/index.css"
+import { Table } from 'element-ui';
+Vue.use(Table);
 Vue.component("mavon-editor", mavonEditor)
 Vue.prototype.$echarts = echarts
 Vue.prototype.$md5 = md5;

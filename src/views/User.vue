@@ -81,7 +81,7 @@
                 <template slot-scope="scope">
                     <el-button type="primary" icon="el-icon-edit" circle @click="edit"></el-button>
                     <el-button type="danger" icon="el-icon-delete" circle style="margin-left: 20px;"></el-button>
-                    <el-button type="warning" icon="el-icon-info" circle style="margin-left: 20px;"></el-button>
+
                 </template>
             </el-table-column>
         </el-table>

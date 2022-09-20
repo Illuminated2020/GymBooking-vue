@@ -55,8 +55,8 @@
                             </el-form-item>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="手机号码" prop="beizhu">
-                        <el-input v-model="orderForm.beizhu" placeholder="请仔细填写，手机号将作为运动统计数据"></el-input>
+                    <el-form-item label="手机号码" prop="phone">
+                        <el-input v-model="orderForm.phone" placeholder="请仔细填写，手机号将作为运动统计数据"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('orderForm')">立即预约</el-button>
@@ -88,7 +88,7 @@ export default {
                 dateDay: '',
                 dateTime: '',
                 class: '',
-                beizhu: '',
+                phone: '',
             },
             rules: {
                 stuname: [
@@ -175,14 +175,16 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     axios.post('/book', {
+                        userId: JSON.parse(localStorage.getItem("userInfo")).data.id,
                         sportsName: this.showForm.name,
                         stuName: this.orderForm.stuname,
                         className: this.orderForm.class,
                         dateDay: this.orderForm.dateDay,
                         dateTime: this.orderForm.dateTime,
-                        beizhu: this.orderForm.beizhu,
+                        phone: this.orderForm.phone,
                     }).then(res => {
                         console.log(res.data);
+                        this.init()
                         this.drawer = false,
                             this.$refs[formName].resetFields();
                         this.$message({

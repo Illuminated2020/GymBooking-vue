@@ -15,7 +15,7 @@
                                 <b>{{item.nickname}}</b>
                                 <span
                                     style="font-size: 5px; color:darkgray;text-align:right">发布于{{item.createTime}}</span>
-                                <span style="color: darkgray;cursor: pointer;margin-left: 800px;"
+                                <span style="color: darkgray;cursor: pointer;margin-right: 0;"
                                     v-if="showBlog(item.userId)" @click="deleteBlog(item.id)">
                                     <i class="el-icon-delete-solid"></i>删除帖子</span>
                             </div>

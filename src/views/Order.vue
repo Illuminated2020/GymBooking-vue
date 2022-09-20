@@ -20,13 +20,22 @@
             </el-table-column>
             <el-table-column prop="dateTime" label="预约时间" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column prop="beizhu" label="备注" show-overflow-tooltip>
+            <el-table-column prop="phone" label="手机号" show-overflow-tooltip>
             </el-table-column>
             <el-table-column fixed="right" label="操作" text-conten="center" width="200px">
                 <template slot-scope="scope">
-                    <el-button type="primary" icon="el-icon-edit" circle @click="edit"></el-button>
+                    <!-- 编辑状态 -->
+                    <el-popover placement="right" width="400" trigger="click">
+                        <el-steps :active="scope.row.status" finish-status="success">
+                            <el-step title="已预约，待前往" icon="el-icon-phone"></el-step>
+                            <el-step title="运动中" icon="el-icon-basketball"></el-step>
+                            <el-step title="已完成"></el-step>
+                        </el-steps>
+                        <el-button v-if="scope.row.status<3" style="margin-top: 12px;" @click="next(scope.row.id)">
+                            更新预约状态</el-button>
+                        <el-button type="primary" plain slot="reference">更新状态</el-button>
+                    </el-popover>
                     <el-button type="danger" icon="el-icon-delete" circle style="margin-left: 20px;"></el-button>
-                    <el-button type="warning" icon="el-icon-info" circle style="margin-left: 20px;"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -36,6 +45,10 @@
                 layout="total, sizes, prev, pager, next, jumper" :total="pagetotal">
             </el-pagination>
         </div>
+
+
+
+
     </div>
 </template>
 
@@ -77,6 +90,14 @@ export default {
         this.init()
     },
     methods: {
+        next(id) {
+            console.log(id);
+            axios.post('/book/next', {
+                id
+            }).then(res => {
+                this.init()
+            })
+        },
         init() {
             axios.get('/book/page', {
                 params: {
@@ -167,7 +188,7 @@ export default {
                 let ids = this.multipleSelection.join(',')
                 // let ids = this.multipleSelection
                 console.log(ids);
-                axios.delete('/user', {
+                axios.delete('/book', {
                     params: { ids }
                 }
                 ).then(res => {

@@ -15,7 +15,6 @@
                     <br><br>
                     <br><br>
                     <br><br>
-                    <br><br>
                     <el-row :gutter="6">
                         <el-col :span="6">
                             <el-card class="box-card">
@@ -57,10 +56,10 @@
                 </el-col>
                 <el-col :span="6">
                     <div id="range">
-                        <h3 style="margin-bottom: 5px;">运动排行榜[只显示前十名数据]</h3>
+                        <h3 style="margin-bottom: 10px;">运动排行榜[只显示前十名数据]</h3>
                         <div class="table">
                             <el-table :data="tableData" stripe style="background-color: rgba(255, 255, 255, 0.27);"
-                                :header-cell-style="{ height:'20px',border: '1px solid tan'}">
+                                :header-cell-style="{ height:'10px',border: '1px solid tan'}">
                                 <el-table-column type="index" label="排名" width="50">
                                 </el-table-column>
                                 <el-table-column prop="stuName" label="用户名" width="120">

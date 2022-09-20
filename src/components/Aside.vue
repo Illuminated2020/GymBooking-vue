@@ -27,6 +27,10 @@
                 <i class="el-icon-phone"></i>
                 场馆预约
             </el-menu-item>
+            <el-menu-item index="/mybook">
+                <i class="el-icon-s-order"></i>
+                我的预约
+            </el-menu-item>
         </el-submenu>
         <el-submenu v-if="menuShow()" index="3">
             <template slot="title">
@@ -56,7 +60,6 @@
                 <i class="el-icon-chat-line-square"></i>
                 我来讲两句
             </el-menu-item>
-            <el-menu-item index="/index">选项3</el-menu-item>
         </el-submenu>
     </el-menu>
 </template>
