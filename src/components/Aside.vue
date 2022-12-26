@@ -4,7 +4,7 @@
         :unique-opened="false" @select="prt" router>
         <div
             style="height: 60px;line-height: 60px;text-align: center;font-weight: bold; background-color: rgb(47,65,86)">
-            <img src="../assets/img/logo.png" style="width: 20px;position: relative;top: 5px">
+            <!-- <img src="../assets/img/logo.png" style="width: 20px;position: relative;top: 5px"> -->
             <b v-show="!isCollapse">
                 <b style="color: rgb(255,255,255);">场馆预约<b v-if="menuShow()">管理</b>系统</b>
 

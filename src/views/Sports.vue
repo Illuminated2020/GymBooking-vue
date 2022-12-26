@@ -201,14 +201,14 @@ export default {
         //编辑
         edit() {
             this.dialogFormVisible = true;
-            this.mytitle = '编辑用户';
+            this.mytitle = '编辑场馆';
         },
         //批量删除
         handleDel() {
             if (this.multipleSelection.length === 0) {
                 return this.$message.error('请选择删除对象')
             }
-            this.$confirm('确定删除该用户, 是否继续?', '确定删除', {
+            this.$confirm('确定删除该场馆, 是否继续?', '确定删除', {
                 'confirmButtonText': '确定',
                 'cancelButtonText': '取消',
             }).then(() => {

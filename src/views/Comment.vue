@@ -2,7 +2,7 @@
   <div style="height: 100px;">
     <twemoji-textarea ref="twemoji" :emojiData="emojiDataAll" :emojiGroups="emojiGroups" @enterKey="onEnterKey"
       :textareaDisabled="!true" :emojiPickerDisabled="!true" :enableSendBtn="true"
-      :placeholder="'请输入评论，按Enter或者左边纸飞机发送'" @contentChanged="contentChanged">
+      :placeholder="'请输入评论，按Enter或者右侧纸飞机发送'" @contentChanged="contentChanged">
     </twemoji-textarea>
   </div>
 </template>

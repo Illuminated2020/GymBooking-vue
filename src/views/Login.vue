@@ -3,7 +3,7 @@
     <el-row type="flex" class="row-bg" justify="center"
       style="background-image: linear-gradient(to top left, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); height: 100%;">
       <el-col :span="5">
-        <div class="tit">欢迎来到体育馆预约登录系统</div>
+        <div class="tit">欢迎来到Gbooking登录系统</div>
         <el-divider></el-divider>
         <el-image :src="require('@/assets/img/erweima.jpg')" style="height: 100%; width: 180px;">
           <div slot="placeholder" class="image-slot">
@@ -25,6 +25,13 @@
             </el-form-item>
             <el-form-item label="密码" prop="password">
               <el-input type="password" v-model="loginForm.password"></el-input>
+            </el-form-item>
+            <el-form-item label="验证码" prop="checkcode">
+              <el-input v-model="checkcode"></el-input>
+            </el-form-item>
+            <el-form-item style="margin-left: 0;">
+              <img id="checkCodeImg" src="http://localhost:8080/checkcode">
+              <a href="#" @click="changeImg">看不清？</a>
             </el-form-item>
             <el-form-item style="width:100%;">
               <el-button :loading="loading" class="login-btn" size="medium" type="primary" style="width:100%;"
@@ -50,6 +57,7 @@ export default {
   name: "Login",
   data() {
     return {
+      checkcode:'',
       loginForm: {
         username: '',
         password: '',
@@ -73,11 +81,11 @@ export default {
     login(formName) {
       this.$refs[formName].validate(async(valid) => {
         if (valid) {
+            let username=this.loginForm.username;
+            let password=this.loginForm.password;
+            let checkcode=this.checkcode;
           this.loading = true
-          const res = await axios.post('/user/login',{
-            username:this.loginForm.username,
-            password:this.loginForm.password,
-          })
+          const res = await axios.post('/user/login?username='+username + '&password=' + password + '&checkcode='+checkcode);
           if (String(res.data.code) === '1') {//1表示登录成功
             localStorage.setItem('userInfo',JSON.stringify(res.data))
             console.log(res.data);
@@ -91,10 +99,15 @@ export default {
     },
     register(){
       window.location.href= '/register'
+    },
+    changeImg(){
+      new Date().getMilliseconds()
+      document.getElementById("checkCodeImg").src="http://localhost:8080/checkcode?"+new Date().getMilliseconds();
     }
   },
 
 }
+
 </script>
 <style scoped>
 #dl {

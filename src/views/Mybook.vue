@@ -83,6 +83,9 @@ export default {
                 case 2:
                     str = '已完成'
                     break;
+                case 3:
+                    str = '已完成'
+                    break;
                 case 4:
                     str = '已取消'
                     break;

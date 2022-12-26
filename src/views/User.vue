@@ -1,16 +1,22 @@
 <template>
     <div>
         <div style="padding:0 0 10px 0">
-            <el-input class="ml-5" style="width:15%" v-model="form.resource" suffix-icon="el-icon-search"
-                placeholder="请输入名称">
+            <template>
+                <el-select v-model="serchform.role" clearable placeholder="请选择">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
+            <el-input class="ml-5" style="width:15%" v-model="serchform.nickname" suffix-icon="el-icon-search"
+                placeholder="请输入用户名">
             </el-input>
-            <el-input class="ml-5" style="width:15%" v-model="form.resource" suffix-icon="el-icon-phone"
+            <!-- <el-input class="ml-5" style="width:15%" v-model="serchform.phone" suffix-icon="el-icon-phone"
                 placeholder="请输入电话">
             </el-input>
-            <el-input class="ml-5" style="width:15%" v-model="form.resource" suffix-icon="el-icon-message"
+            <el-input class="ml-5" style="width:15%" v-model="serchform.email" suffix-icon="el-icon-message"
                 placeholder="请输入邮箱">
-            </el-input>
-            <el-button class="ml-5" type="primary" round>搜索</el-button>
+            </el-input> -->
+            <el-button class="ml-5" type="primary" round @click="serch">搜索</el-button>
         </div>
         <div style="margin:0 0 10px 5px">
             <el-button @click="toggleSelection()">取消选择</el-button>
@@ -103,6 +109,14 @@ export default {
     },
     data() {
         return {
+            options: [{
+                value: '普通用户',
+                label: '普通用户'
+            }, {
+                value: '管理员',
+                label: '管理员'
+            },],
+            value: "",
             addForm: {
                 nickname: '',
                 username: '',
@@ -121,6 +135,11 @@ export default {
                 type: [],
                 resource: '',
                 desc: ''
+            },
+            serchform: {
+                role: '',
+                nickname: '',
+                phone: '',
             },
             pageSize: 10,
             pagetotal: 0,
@@ -231,6 +250,18 @@ export default {
         },
         handleExcelImportSuccess() {
             this.$message.success('导入成功！')
+        },
+        //搜索
+        serch() {
+            console.log(1);
+            axios.get('/user/page', {
+                params: {
+                    page: this.currentpage, pageSize: this.pageSize,
+                    role: this.serchform.role, nickname: this.serchform.nickname,
+                }
+            }).then(res => {
+                this.tableData = res.data.data.records || [];
+            })
         }
     },
 }

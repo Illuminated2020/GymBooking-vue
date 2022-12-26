@@ -1,7 +1,7 @@
 <template>
     <div id="home" style="padding: 0 10px; box-sizing: border-box;">
         <div id="app">
-            <h1 style="font-size: 70px; font-weight: bolder; text-align: center;">欢迎访问体育馆预约系统</h1>
+            <h1 style="font-size: 70px; font-weight: bolder; text-align: center;">欢迎访问Gbooking体育馆预约系统</h1>
             <br><br>
             <br><br>
             <br><br>
@@ -17,7 +17,7 @@
                     <br><br>
                     <el-row :gutter="6">
                         <el-col :span="6">
-                            <el-card class="box-card">
+                            <el-card class="box-card1">
                                 <el-tooltip class="item" effect="dark" content="立即预约" placement="top">
                                     <el-image :src="require('@/assets/img/ONCALL.png')" class="image"
                                         style="width:100%;cursor: pointer;" @click="jump('/book')">
@@ -26,7 +26,7 @@
                             </el-card>
                         </el-col>
                         <el-col :span="6">
-                            <el-card class="box-card">
+                            <el-card class="box-card2">
                                 <el-tooltip class="item" effect="dark" content="聊天广场" placement="top">
                                     <el-image :src="require('@/assets/img/chat.png')" class="image"
                                         style="width:100%;cursor: pointer;" @click="jump('/chat')">
@@ -35,7 +35,7 @@
                             </el-card>
                         </el-col>
                         <el-col :span="6">
-                            <el-card class="box-card">
+                            <el-card class="box-card3">
                                 <el-tooltip class="item" effect="dark" content="场馆数据" placement="top">
                                     <el-image :src="require('@/assets/img/data.png')" class="image"
                                         style="width:100%;cursor: pointer;" @click="jump('/data')">
@@ -44,7 +44,7 @@
                             </el-card>
                         </el-col>
                         <el-col :span="6">
-                            <el-card class="box-card">
+                            <el-card class="box-card4">
                                 <el-tooltip class="item" effect="dark" content="我来讲两句" placement="top">
                                     <el-image :src="require('@/assets/img/blog.png')" class="image"
                                         style="width:100%;cursor: pointer;" @click="jump('/markdown')">
@@ -185,6 +185,35 @@ export default {
     background: transparent;
     height: 120px;
 
+}
+
+.box-card1 {
+    width: 120px;
+    background: transparent;
+    height: 120px;
+    background-image: linear-gradient(-225deg, #D4FFEC 0%, #57F2CC 48%, #4596FB 100%);
+
+}
+
+.box-card2 {
+    width: 120px;
+    background: transparent;
+    height: 120px;
+    background-image: linear-gradient(to right, #00c9ff, #92fe9d);
+}
+
+.box-card3 {
+    width: 120px;
+    background: transparent;
+    height: 120px;
+    background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+}
+
+.box-card4 {
+    width: 120px;
+    background: transparent;
+    height: 120px;
+    background-image: linear-gradient(to right, #11998e, #38ef7d);
 }
 
 .table /deep/ .el-table th {

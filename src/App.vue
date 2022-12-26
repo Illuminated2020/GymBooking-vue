@@ -1,21 +1,5 @@
 <template>
   <div id="app">
-    <!--  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
-      :unique-opened="true">
-      <el-menu-item index="1" style="color: black" @click="jump('/')">体育馆预约系统</el-menu-item>
-      <el-menu-item index="2">处理中心</el-menu-item>
-
-      <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">数据管理</a></el-menu-item>
-
-      <el-submenu index="4">
-        <i class="el-icon-user-solid" style="position: relative"></i>
-        <template slot="title" class="el-icon-user-solid">{{username}}</template>
-        <el-menu-item index="4-1">个人中心</el-menu-item>
-        <el-menu-item index="4-2" @click="jump('/login')">登录</el-menu-item>
-        <el-menu-item index="4-3">退出</el-menu-item>
-      </el-submenu>
-    </el-menu>
- -->
     <router-view />
   </div>
 </template>

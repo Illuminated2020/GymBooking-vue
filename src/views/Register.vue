@@ -2,7 +2,7 @@
   <el-row type="flex" class="row-bg" justify="center"
     style="background-image: linear-gradient(to top left, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); height: 100%;">
     <el-col :span=" 5">
-      <div class="tit">欢迎来到体育馆预约注册系统</div>
+      <div class="tit">欢迎来到Gbooking注册系统</div>
       <el-divider></el-divider>
       <el-image :src="require('@/assets/img/erweima.jpg')" style="height: 100%; width: 180px;">
         <div slot="placeholder" class="image-slot">
